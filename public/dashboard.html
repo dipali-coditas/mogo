@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Data Display</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>User Data</h2>
+
+  <table id="userData">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <!-- <th>Password</th> -->
+        <th>Phone Number</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      try {
+        const response = await fetch('http://localhost:4000/get_all_data');
+        const data = await response.json();
+
+        const userData = data.users;
+
+        const tableBody = document.querySelector('#userData tbody');
+
+        userData.forEach(user => {
+          const row = document.createElement('tr');
+
+          const userIdCell = document.createElement('td');
+          userIdCell.textContent = user.userid;
+          row.appendChild(userIdCell);
+
+          // const passCell = document.createElement('td');
+          // passCell.textContent = user.pass;
+          // row.appendChild(passCell);
+
+          const phNoCell = document.createElement('td');
+          phNoCell.textContent = user.ph_no;
+          row.appendChild(phNoCell);
+
+          tableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+git init
+git status
+git add .
+git commit -m "Initial Commit"
+git remote add origin https://github.com/dipali-coditas/mogo.git
+git push -u origin main
+git status

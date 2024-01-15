@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      max-width: 400px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>User Registration</h2>
+
+  <form id="registrationForm">
+    <label for="userid">User ID:</label>
+    <input type="text" id="userid" name="userid" required><br>
+
+    <label for="pass">Password:</label>
+    <input type="password" id="pass" name="pass" required><br>
+
+    <label for="ph_no">Phone Number:</label>
+    <input type="text" id="ph_no" name="ph_no" required><br>
+
+    <button type="button" onclick="registerUser()">Register</button>
+  </form>
+
+  <script>
+    async function registerUser() {
+      const userid = document.getElementById('userid').value;
+      const pass = document.getElementById('pass').value;
+      const ph_no = document.getElementById('ph_no').value;
+
+      const data = {
+        userid,
+        pass,
+        ph_no
+      };
+
+      try {
+        const response = await fetch('http://localhost:4000/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        alert(result.message);
+      } catch (error) {
+        console.error('Error registering user:', error);
+      }
+    }
+  </script>
+
+</body>
+</html>
